@@ -1,16 +1,66 @@
-import { useState, useEffect } from "react";
-import { Console } from "../components/Console";
-import { FileInput } from "../components/FileInput";
+import { useState, useEffect } from 'react'
+import { Console } from '../components/Console'
+import { SettingsForm } from './SettingsForm'
+import { Settings } from './Settings'
+import { SettingsButton } from '../components/SettingsButton'
+import { ClipboardButton } from '../components/ClipBoardButton'
+import { Welcome } from './Welcome'
+import { Card } from '../components/Card'
+import { ReleaseNotes } from '../content/ReleaseNotes'
 
 export function Home() {
-    const [asciiArt, setAsciiArt] = useState<string | null>(null);
+    const [welcomevisible, setWelcomevisible] = useState<boolean>(true)
+    const [isCopied, setIsCopied] = useState<boolean>(false)
+    const [asciiArt, setAsciiArt] = useState<string | null>(null)
+    const [settingsVisible, setSettingsVisible] = useState<boolean>(false)
 
-    useEffect(() => {}, [asciiArt]);
+    useEffect(() => {}, [asciiArt, settingsVisible, welcomevisible])
 
+    const writeToClipboard = async () => {
+        if (!asciiArt) return
+        try {
+            await navigator.clipboard.writeText(asciiArt)
+            setIsCopied(true)
+            setTimeout(() => {
+                setIsCopied(false)
+            }, 3000)
+        } catch (e) {
+            console.error(`Error in copying ${e}`)
+            setIsCopied(false)
+        }
+    }
+
+    const toggleSettings = () => {
+        setSettingsVisible(!settingsVisible)
+    }
+
+    const toggleWelcome = () => {
+        setWelcomevisible(!welcomevisible)
+    }
     return (
-        <>
+        <div className="flex h-full w-full flex-col items-center justify-center p-4">
+            <Welcome isVisible={welcomevisible}>
+                <Card
+                    cardTitle="Welcome to tsImgScii"
+                    closeFunction={toggleWelcome}
+                >
+                    <ReleaseNotes />
+                </Card>
+            </Welcome>
             <Console content={asciiArt} />
-            <FileInput setFinalArt={setAsciiArt} />
-        </>
-    );
+            <ClipboardButton onClick={writeToClipboard} isCopied={isCopied} />
+            <div className="absolute top-0 right-0 z-10 flex h-full max-w-[80%]">
+                <SettingsButton
+                    onClick={toggleSettings}
+                    isOpen={settingsVisible}
+                />
+                <Settings settingsVisible={settingsVisible}>
+                    <SettingsForm
+                        setFinalArt={setAsciiArt}
+                        toggleAbout={toggleWelcome}
+                    />
+                </Settings>
+            </div>
+        </div>
+    )
 }

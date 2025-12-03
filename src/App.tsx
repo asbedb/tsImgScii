@@ -1,11 +1,11 @@
-import { Home } from "./layout/Home";
+import { Home } from './layout/Home'
 
 function App() {
     return (
-        <div className="flex flex-col w-screen h-screen bg-black p-4 m-0 text-white overflow-hidden">
+        <div className="m-0 flex h-svh w-svw flex-col overflow-hidden bg-black p-0 text-white">
             <Home />
         </div>
-    );
+    )
 }
 
-export default App;
+export default App
