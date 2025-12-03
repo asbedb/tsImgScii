@@ -1,6 +1,6 @@
 export function GitHubButton() {
     const openGitHub = () => {
-        window.open('', '_blank')?.focus()
+        window.open('https://github.com/asbedb/tsImgScii', '_blank')?.focus()
     }
     return (
         <button
