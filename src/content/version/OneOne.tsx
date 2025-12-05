@@ -12,11 +12,9 @@ export function OneOne() {
                 <li>Custom colours for buttons and input </li>
                 <li>Hover effects for buttons </li>
                 <li>
-                    Changed browser API calls to use IndexDB to avoid issues
+                    Changed browser API calls to use IndexedDB to avoid issues
                     with size of images
                 </li>
-                <li>Clipboard support on desktop</li>
-                <li>Experimental Greyscale filter flag</li>
                 <li>
                     Further streamlined folder structure to help with future
                     refactors
