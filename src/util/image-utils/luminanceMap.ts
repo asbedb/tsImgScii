@@ -1,7 +1,10 @@
-import { loadImageFromLocal } from '../storage-utils/load'
+import { loadImageFromIndexedDB } from '../indexdb-utils/loadImageFromIndexedDB'
 
 export async function luminanceMap(): Promise<Array<number> | undefined> {
-    const img = await loadImageFromLocal(true)
+    let img = await loadImageFromIndexedDB(true)
+    if (!img) {
+        img = await loadImageFromIndexedDB()
+    }
     if (!img) return undefined
     try {
         const canvas = document.createElement('canvas')

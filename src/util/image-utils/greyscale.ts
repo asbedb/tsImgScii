@@ -1,8 +1,11 @@
-import { MODIFIED_STORAGE_KEY } from '../../const'
-import { loadImageFromLocal } from '../storage-utils/load'
+import { loadImageFromIndexedDB } from '../indexdb-utils/loadImageFromIndexedDB'
+import { saveImagetoIndexedDB } from '../indexdb-utils/saveImageToIndexedDB'
 
 export async function greyScaleFilter(): Promise<string | undefined> {
-    const img = await loadImageFromLocal(true)
+    let img = await loadImageFromIndexedDB(true)
+    if (!img) {
+        img = await loadImageFromIndexedDB()
+    }
     if (!img) return undefined
     try {
         const canvas = document.createElement('canvas')
@@ -24,7 +27,7 @@ export async function greyScaleFilter(): Promise<string | undefined> {
         }
         ctx.putImageData(imageData, 0, 0)
         const newBase64String = canvas.toDataURL('image/png')
-        localStorage.setItem(MODIFIED_STORAGE_KEY, newBase64String)
+        saveImagetoIndexedDB(newBase64String, true)
         return newBase64String
     } catch (e) {
         console.error(e)
