@@ -1,12 +1,12 @@
-import { MODIFIED_STORAGE_KEY } from '../const'
-import { loadImageFromLocal } from './load'
-import { DEFAULT_WIDTH, DEFAULT_HEIGHT } from '../const'
+import { DEFAULT_WIDTH, DEFAULT_HEIGHT } from '../../const'
+import { loadImageFromIndexedDB } from '../indexdb-utils/loadImageFromIndexedDB'
+import { saveImagetoIndexedDB } from '../indexdb-utils/saveImageToIndexedDB'
 
 export async function resizeImage(
     width?: number,
     height?: number
 ): Promise<string | undefined> {
-    const img = await loadImageFromLocal()
+    const img = await loadImageFromIndexedDB()
     if (!img) return undefined
     try {
         const canvas = document.createElement('canvas')
@@ -22,7 +22,7 @@ export async function resizeImage(
             ctx.drawImage(img, 0, 0, width, height)
         }
         const newBase64String = canvas.toDataURL('image/png')
-        localStorage.setItem(MODIFIED_STORAGE_KEY, newBase64String)
+        saveImagetoIndexedDB(newBase64String, true)
         return newBase64String
     } catch (e) {
         console.error(e)

@@ -1,4 +1,4 @@
-import { DEFAULT_SHADE_RAMP } from '../const'
+import { DEFAULT_SHADE_RAMP } from '../../const'
 export function mapToCharCode(
     luminanceMap: Array<number>,
     width: number,

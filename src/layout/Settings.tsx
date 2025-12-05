@@ -6,7 +6,7 @@ interface SettingsProps {
 export function Settings({ children, settingsVisible }: SettingsProps) {
     return (
         <div
-            className={`flex h-full w-full flex-col ${settingsVisible ? '' : 'hidden'} mb-12 overflow-y-scroll bg-gray-950 p-4 text-white`}
+            className={`flex h-full w-full flex-col ${settingsVisible ? '' : 'hidden'} overflow-y-scroll bg-gray-950 p-4 text-white`}
         >
             {children}
         </div>

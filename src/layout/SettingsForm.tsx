@@ -1,21 +1,17 @@
 import { useState, type ChangeEvent } from 'react'
-import { saveImageToLocal } from '../util/save'
-import { greyScaleFilter } from '../util/greyscale'
-import { resizeImage } from '../util/resize'
-import { luminanceMap } from '../util/luminanceMap'
-import { mapToCharCode } from '../util/mapToCharCode'
-import {
-    DEFAULT_HEIGHT,
-    DEFAULT_SHADE_RAMP,
-    DEFAULT_WIDTH,
-    LOCAL_STORAGE_KEY,
-    MODIFIED_STORAGE_KEY,
-} from '../const'
+import { greyScaleFilter } from '../util/image-utils/greyscale'
+import { resizeImage } from '../util/image-utils/resize'
+import { luminanceMap } from '../util/image-utils/luminanceMap'
+import { mapToCharCode } from '../util/image-utils/mapToCharCode'
+import { DEFAULT_HEIGHT, DEFAULT_SHADE_RAMP, DEFAULT_WIDTH } from '../const'
 
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { ImageComponent } from '../components/ImageComponent'
-import { getImageDimensions } from '../util/getImageDimensions'
+import { getImageDimensions } from '../util/image-utils/getImageDimensions'
+import { saveImagetoIndexedDB } from '../util/indexdb-utils/saveImageToIndexedDB'
+import { fileToBase64 } from '../util/indexdb-utils/fileToBase64'
+import { clearImageStore } from '../util/indexdb-utils/clearImageStore'
 
 interface FileInputProps {
     setFinalArt: (art: string | null) => void
@@ -66,23 +62,21 @@ export function SettingsForm({ setFinalArt, toggleAbout }: FileInputProps) {
         setPreviewUrl(null)
         const file = event.target.files?.[0]
         if (!file) return
+
         try {
-            const dataUrl = await saveImageToLocal(file)
-            if (dataUrl) {
-                const dimensions = await getImageDimensions(dataUrl)
-                setOriginalUrl(dataUrl)
-                setWidth(dimensions.width)
-                setHeight(dimensions.height)
-            } else {
-                setError('Not a valid image')
-            }
+            const dataUrl = await fileToBase64(file)
+            await saveImagetoIndexedDB(dataUrl, false)
+            const dimensions = await getImageDimensions(dataUrl)
+            setOriginalUrl(dataUrl)
+            setWidth(dimensions.width)
+            setHeight(dimensions.height)
         } catch (e) {
             console.log(e)
             setError(`${e}`)
         }
     }
 
-    // Grayscale Handler (To be used lated with contrast slider etc)
+    // Grayscale Handler (To be used later with contrast slider etc)
     const handleGreyscale = async (e: ChangeEvent<HTMLInputElement>) => {
         const isNowGreyscale = e.target.checked
         toggleGreyScale(isNowGreyscale)
@@ -137,9 +131,12 @@ export function SettingsForm({ setFinalArt, toggleAbout }: FileInputProps) {
         setPreviewUrl(null)
         setOriginalUrl(null)
         setFinalArt(null)
-        localStorage.removeItem(LOCAL_STORAGE_KEY)
-        localStorage.removeItem(MODIFIED_STORAGE_KEY)
-        setError('Reset Complete')
+        try {
+            await clearImageStore()
+            setError('Reset Complete')
+        } catch (e) {
+            setError(`${e}`)
+        }
     }
 
     const handleWidthChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -217,7 +214,6 @@ export function SettingsForm({ setFinalArt, toggleAbout }: FileInputProps) {
                 />
                 <Button label="Apply Resize" onClick={applyResize} />
             </div>
-
             <Button label="Generate" onClick={handleGenerate} />
             <Button label="Reset" onClick={handleReset} />
             <div className="flex w-full flex-col gap-4 border border-white/10 p-2">

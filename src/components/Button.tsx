@@ -7,7 +7,7 @@ export function Button({ label, onClick }: ButtonProps) {
     return (
         <button
             onClick={onClick}
-            className="flex h-fit w-full justify-center rounded-xl bg-blue-500 p-2"
+            className="bg-purpy-500 hover:bg-purpy-200 flex h-fit w-full justify-center rounded-xl p-2 hover:cursor-pointer"
         >
             {label}
         </button>

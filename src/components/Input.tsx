@@ -42,8 +42,10 @@ export function Input({
                 checked={isChecked}
                 value={value}
                 className={`${
-                    isTextInput ? 'bg-gray-800' : 'rounded-xl bg-blue-500'
-                } flex w-full truncate p-2 font-bold`}
+                    isTextInput
+                        ? 'bg-gray-800'
+                        : 'bg-purpy-500 hover:bg-purpy-200 rounded-xl hover:cursor-pointer'
+                } flex w-full truncate p-2 font-bold ${type == 'checkbox' ? '' : 'flex'}`}
                 placeholder={customPlaceholder ? customPlaceholder : label}
             />
         </div>

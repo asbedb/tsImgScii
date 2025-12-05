@@ -1,1 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@theme {
+    --color-purpy-500: oklch(0.4335 0.2067 301);
+    --color-purpy-200: oklch(0.5616 0.2067 301);
+    --color-purpy-50: oklch(0.6962 0.2067 301);
+}

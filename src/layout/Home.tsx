@@ -49,7 +49,7 @@ export function Home() {
             </Welcome>
             <Console content={asciiArt} />
             <ClipboardButton onClick={writeToClipboard} isCopied={isCopied} />
-            <div className="absolute top-0 right-0 z-10 flex h-full max-w-[80%]">
+            <div className="absolute top-0 right-0 z-10 flex h-full max-w-[95%]">
                 <SettingsButton
                     onClick={toggleSettings}
                     isOpen={settingsVisible}
