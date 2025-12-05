@@ -1,9 +1,9 @@
 import { useState, type ChangeEvent } from 'react'
-import { saveImageToLocal } from '../util/save'
-import { greyScaleFilter } from '../util/greyscale'
-import { resizeImage } from '../util/resize'
-import { luminanceMap } from '../util/luminanceMap'
-import { mapToCharCode } from '../util/mapToCharCode'
+import { saveImageToLocal } from '../util/storage-utils/save'
+import { greyScaleFilter } from '../util/image-utils/greyscale'
+import { resizeImage } from '../util/image-utils/resize'
+import { luminanceMap } from '../util/image-utils/luminanceMap'
+import { mapToCharCode } from '../util/image-utils/mapToCharCode'
 import {
     DEFAULT_HEIGHT,
     DEFAULT_SHADE_RAMP,
@@ -15,7 +15,7 @@ import {
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { ImageComponent } from '../components/ImageComponent'
-import { getImageDimensions } from '../util/getImageDimensions'
+import { getImageDimensions } from '../util/image-utils/getImageDimensions'
 
 interface FileInputProps {
     setFinalArt: (art: string | null) => void
@@ -82,7 +82,7 @@ export function SettingsForm({ setFinalArt, toggleAbout }: FileInputProps) {
         }
     }
 
-    // Grayscale Handler (To be used lated with contrast slider etc)
+    // Grayscale Handler (To be used later with contrast slider etc)
     const handleGreyscale = async (e: ChangeEvent<HTMLInputElement>) => {
         const isNowGreyscale = e.target.checked
         toggleGreyScale(isNowGreyscale)
@@ -217,7 +217,6 @@ export function SettingsForm({ setFinalArt, toggleAbout }: FileInputProps) {
                 />
                 <Button label="Apply Resize" onClick={applyResize} />
             </div>
-
             <Button label="Generate" onClick={handleGenerate} />
             <Button label="Reset" onClick={handleReset} />
             <div className="flex w-full flex-col gap-4 border border-white/10 p-2">

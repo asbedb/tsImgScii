@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getImageDimensions } from '../util/getImageDimensions'
+import { getImageDimensions } from '../util/image-utils/getImageDimensions'
 
 interface ImageComponentProps {
     sourceUrl: string

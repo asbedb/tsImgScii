@@ -1,5 +1,5 @@
-import { LOCAL_STORAGE_KEY, MODIFIED_STORAGE_KEY } from '../const'
-
+import { LOCAL_STORAGE_KEY, MODIFIED_STORAGE_KEY } from '../../const'
+// Refactor this to use indexDB
 export function saveImageToLocal(
     imageUpload: File
 ): Promise<string | undefined> {

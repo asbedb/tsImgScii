@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY, MODIFIED_STORAGE_KEY } from '../const'
+import { LOCAL_STORAGE_KEY, MODIFIED_STORAGE_KEY } from '../../const'
 export function loadImageFromLocal(
     isModified?: boolean
 ): Promise<HTMLImageElement | undefined> {

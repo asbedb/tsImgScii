@@ -5,7 +5,7 @@ export function GitHubButton() {
     return (
         <button
             onClick={openGitHub}
-            className="flex h-fit w-fit justify-center self-center rounded-full bg-blue-800 p-4 text-center select-none hover:cursor-pointer hover:bg-blue-600"
+            className="hover:bg-purpy-200 bg-purpy-500 my-4 flex h-fit w-fit rounded-full p-4 text-center select-none hover:cursor-pointer"
         >
             Project GitHub Link
         </button>

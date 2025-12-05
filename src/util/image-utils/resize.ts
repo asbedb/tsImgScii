@@ -1,6 +1,9 @@
-import { MODIFIED_STORAGE_KEY } from '../const'
-import { loadImageFromLocal } from './load'
-import { DEFAULT_WIDTH, DEFAULT_HEIGHT } from '../const'
+import {
+    MODIFIED_STORAGE_KEY,
+    DEFAULT_WIDTH,
+    DEFAULT_HEIGHT,
+} from '../../const'
+import { loadImageFromLocal } from '../storage-utils/load'
 
 export async function resizeImage(
     width?: number,
