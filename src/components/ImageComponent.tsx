@@ -47,7 +47,7 @@ export function ImageComponent({ sourceUrl, label }: ImageComponentProps) {
 
     return (
         <a
-            className="flex flex-col items-center border border-white/10 p-2 select-none hover:cursor-pointer"
+            className="flex flex-col items-center gap-2 p-2 select-none hover:cursor-pointer"
             href={sourceUrl}
             target="_blank"
             rel="noopener noreferrer"

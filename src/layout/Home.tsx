@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react'
-import { Console } from '../components/Console'
+import { Console } from '../modules/Console'
 import { SettingsForm } from './SettingsForm'
 import { Settings } from './Settings'
 import { SettingsButton } from '../components/SettingsButton'
 import { ClipboardButton } from '../components/ClipBoardButton'
 import { Welcome } from './Welcome'
-import { Card } from '../components/Card'
-import { ReleaseNotes } from '../content/ReleaseNotes'
 
 export function Home() {
     const [welcomevisible, setWelcomevisible] = useState<boolean>(true)
@@ -39,14 +37,7 @@ export function Home() {
     }
     return (
         <div className="flex h-full w-full flex-col items-center justify-center p-4">
-            <Welcome isVisible={welcomevisible}>
-                <Card
-                    cardTitle="Welcome to tsImgScii"
-                    closeFunction={toggleWelcome}
-                >
-                    <ReleaseNotes />
-                </Card>
-            </Welcome>
+            <Welcome isVisible={welcomevisible} toggleWelcome={toggleWelcome} />
             <Console content={asciiArt} />
             <ClipboardButton onClick={writeToClipboard} isCopied={isCopied} />
             <div className="absolute top-0 right-0 z-10 flex h-full max-w-[95%]">

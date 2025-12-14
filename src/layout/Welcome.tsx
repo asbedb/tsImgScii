@@ -1,13 +1,20 @@
+import { Card } from '../components/Card'
+import { ReleaseNotes } from '../content/ReleaseNotes'
 interface WelcomeProps {
-    children: React.ReactNode
     isVisible: boolean
+    toggleWelcome: () => void
 }
-export function Welcome({ children, isVisible }: WelcomeProps) {
+export function Welcome({ isVisible, toggleWelcome }: WelcomeProps) {
     return (
         <div
             className={`${isVisible ? 'absolute block' : 'hidden'} z-20 flex h-full w-svw flex-col items-center justify-center bg-black/60 p-8 md:p-60`}
         >
-            {children}
+            <Card
+                cardTitle="Welcome to tsImgScii"
+                closeFunction={toggleWelcome}
+            >
+                <ReleaseNotes />
+            </Card>
         </div>
     )
 }
