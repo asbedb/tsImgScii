@@ -20,7 +20,7 @@ export function Size({
 }: SizeProps) {
     return (
         <Details title="Resize">
-            <div className="flex w-full flex-col gap-4 border border-white/10 p-2">
+            <div className="flex w-full flex-col gap-4 p-2">
                 <Input
                     type="number"
                     onChange={handleWidthChange}

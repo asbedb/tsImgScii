@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Console } from '../modules/Console'
+import { Console } from '../modules/PreviewContainer'
 import { SettingsForm } from './SettingsForm'
 import { Settings } from './Settings'
 import { SettingsButton } from '../components/SettingsButton'

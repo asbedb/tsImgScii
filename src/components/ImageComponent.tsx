@@ -46,21 +46,12 @@ export function ImageComponent({ sourceUrl, label }: ImageComponentProps) {
     const displayHeight = dimensions.height ?? '...'
 
     return (
-        <a
-            className="flex flex-col items-center gap-2 p-2 select-none hover:cursor-pointer"
-            href={sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-        >
+        <div className="flex flex-col items-center gap-2 p-2 select-none">
             <span>{label}</span>
-            <img
-                src={sourceUrl}
-                alt={`${label} Preview`}
-                className="flex max-w-[100px] min-w-[50px]"
-            />
+            <img src={sourceUrl} alt={`${label} Preview`} className="flex" />
             <span>
                 Width: {displayWidth} Height: {displayHeight}
             </span>
-        </a>
+        </div>
     )
 }

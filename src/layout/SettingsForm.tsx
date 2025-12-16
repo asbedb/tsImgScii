@@ -1,4 +1,4 @@
-import { useImageConvertor } from '../hooks/useImageConvertor'
+import { type ChangeEvent } from 'react'
 import { ImageSelect } from '../modules/ImageSelect'
 import { ShadeRamp } from '../modules/ShadeRamp'
 import { Size } from '../modules/Size'
@@ -7,38 +7,44 @@ import { MessageModule } from '../modules/MessageModule'
 
 import { Button } from '../components/Button'
 
+type EventDrivenChange = (e: ChangeEvent<HTMLInputElement>) => void
+
 interface FileInputProps {
-    setFinalArt: (art: string | null) => void
     toggleAbout: () => void
+    shadeRamp: string | null
+    width: number | null
+    height: number | null
+    message: string | null
+    greyScale: boolean
+    handleFileChange: EventDrivenChange
+    handleWidthChange: EventDrivenChange
+    handleHeightChange: EventDrivenChange
+    handleShadeRampChange: EventDrivenChange
+    handleGreyscale: EventDrivenChange
+    handleReset: () => void
+    applyResize: () => void
+    handleGenerate: () => void
 }
 
-export function SettingsForm({ setFinalArt, toggleAbout }: FileInputProps) {
-    const {
-        // State
-        shadeRamp,
-        width,
-        height,
-        originalUrl,
-        previewUrl,
-        message,
-        greyScale,
-        // Handlers
-        handleFileChange,
-        handleWidthChange,
-        handleHeightChange,
-        handleShadeRampChange,
-        handleGreyscale,
-        handleReset,
-        applyResize,
-        handleGenerate,
-    } = useImageConvertor(setFinalArt)
+export function SettingsForm({
+    toggleAbout,
+    shadeRamp,
+    width,
+    height,
+    message,
+    greyScale,
+    handleFileChange,
+    handleWidthChange,
+    handleHeightChange,
+    handleShadeRampChange,
+    handleGreyscale,
+    handleReset,
+    applyResize,
+    handleGenerate,
+}: FileInputProps) {
     return (
-        <div className="flex h-full w-full grow flex-col gap-4 overflow-y-scroll py-4">
-            <ImageSelect
-                handleFileChange={handleFileChange}
-                originalUrl={originalUrl}
-                previewUrl={previewUrl}
-            />
+        <div className="flex h-full w-full flex-col gap-4 overflow-y-scroll py-4">
+            <ImageSelect handleFileChange={handleFileChange} />
             <ShadeRamp
                 shadeRamp={shadeRamp}
                 handleShadeRampChange={handleShadeRampChange}
