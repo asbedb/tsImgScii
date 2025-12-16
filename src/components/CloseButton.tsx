@@ -1,10 +1,11 @@
 interface CloseButtonProps {
-    onClick: () => void
+    popoverTarget: string
 }
-export function CloseButton({ onClick }: CloseButtonProps) {
+export function CloseButton({ popoverTarget }: CloseButtonProps) {
     return (
         <button
-            onClick={onClick}
+            popoverTarget={popoverTarget}
+            popoverTargetAction="hide"
             className="bg-purpy-500 hover:bg-purpy-200 flex h-fit w-fit justify-center self-end rounded-full p-4 text-center select-none hover:cursor-pointer"
         >
             ❌ Close

@@ -1,5 +1,7 @@
 import { AsciiContainer } from '../components/AsciiContainer'
+import { CarouselItem } from '../components/CarouselItem'
 import { ImageComponent } from '../components/ImageComponent'
+import { Carousel } from '../components/Carousel'
 interface ConsoleProps {
     originalUrl: string | null
     previewUrl: string | null
@@ -11,23 +13,22 @@ export function PreviewContainer({
     asciiArt,
 }: ConsoleProps) {
     return (
-        <div className="flex h-full min-h-[50%] w-full snap-x overflow-hidden overflow-x-scroll text-center">
-            <div className="flex min-w-screen snap-center items-center justify-center">
+        <Carousel>
+            <CarouselItem>
                 {originalUrl ? (
                     <ImageComponent label="Original:" sourceUrl={originalUrl} />
                 ) : (
                     <div className="p-8">Upload an image to start</div>
                 )}
-            </div>
-            <div className="flex min-w-screen snap-center items-center justify-center">
+            </CarouselItem>
+            <CarouselItem>
                 {previewUrl ? (
                     <ImageComponent label="Modified:" sourceUrl={previewUrl} />
                 ) : (
                     <div className="p-8">Modify the image to see a preview</div>
                 )}
-            </div>
-            {/* Permanent Slot 3: ASCII Art (FIXED) */}
-            <div className="flex min-w-screen snap-center items-center justify-center">
+            </CarouselItem>
+            <CarouselItem>
                 {asciiArt ? (
                     <AsciiContainer content={asciiArt} />
                 ) : (
@@ -35,7 +36,7 @@ export function PreviewContainer({
                         Generate ASCII art to view results
                     </div>
                 )}
-            </div>
-        </div>
+            </CarouselItem>
+        </Carousel>
     )
 }

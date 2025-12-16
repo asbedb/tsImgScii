@@ -48,7 +48,14 @@ export function ImageComponent({ sourceUrl, label }: ImageComponentProps) {
     return (
         <div className="flex flex-col items-center gap-2 p-2 select-none">
             <span>{label}</span>
-            <img src={sourceUrl} alt={`${label} Preview`} className="flex" />
+            <div className="flex h-72 w-72 overflow-hidden">
+                <img
+                    src={sourceUrl}
+                    alt={`${label} Preview`}
+                    className="h-full w-full"
+                />
+            </div>
+
             <span>
                 Width: {displayWidth} Height: {displayHeight}
             </span>

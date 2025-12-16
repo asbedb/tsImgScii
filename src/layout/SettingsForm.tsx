@@ -2,15 +2,16 @@ import { type ChangeEvent } from 'react'
 import { ImageSelect } from '../modules/ImageSelect'
 import { ShadeRamp } from '../modules/ShadeRamp'
 import { Size } from '../modules/Size'
-import { Experimental } from '../modules/Experimental'
+import { Filters } from '../modules/Filters'
 import { MessageModule } from '../modules/MessageModule'
 
-import { Button } from '../components/Button'
+import { WelcomePopover } from './WelcomePopover'
+import { GenerateButton } from '../components/GenerateButton'
+import { ResetButton } from '../components/ResetButton'
 
 type EventDrivenChange = (e: ChangeEvent<HTMLInputElement>) => void
 
 interface FileInputProps {
-    toggleAbout: () => void
     shadeRamp: string | null
     width: number | null
     height: number | null
@@ -27,7 +28,6 @@ interface FileInputProps {
 }
 
 export function SettingsForm({
-    toggleAbout,
     shadeRamp,
     width,
     height,
@@ -57,13 +57,10 @@ export function SettingsForm({
                 width={width}
                 height={height}
             />
-            <Experimental
-                greyScale={greyScale}
-                handleGreyscale={handleGreyscale}
-            />
-            <Button label="Generate" onClick={handleGenerate} />
-            <Button label="Reset" onClick={handleReset} />
-            <Button label="About" onClick={toggleAbout} />
+            <Filters greyScale={greyScale} handleGreyscale={handleGreyscale} />
+            <GenerateButton label="Generate" onClick={handleGenerate} />
+            <ResetButton label="Reset" onClick={handleReset} />
+            <WelcomePopover />
             <MessageModule message={message} />
         </div>
     )
