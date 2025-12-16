@@ -1,7 +1,7 @@
 import { Card } from '../components/Card'
 import { ReleaseNotes } from '../content/ReleaseNotes'
 
-import { AboutButton } from '../components/AboutBUtton'
+import { AboutButton } from '../components/AboutButton'
 
 export function WelcomePopover() {
     return (
