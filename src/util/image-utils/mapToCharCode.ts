@@ -2,7 +2,7 @@ import { DEFAULT_SHADE_RAMP } from '../../const'
 export function mapToCharCode(
     luminanceMap: Array<number>,
     width: number,
-    customShadeRamp?: string
+    customShadeRamp?: string | null
 ): string | undefined {
     if (!luminanceMap || width <= 0) return undefined
     let SHADE_RAMP = ''
