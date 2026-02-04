@@ -59,7 +59,7 @@ export function Carousel({ items }: CarouselProps) {
     }
 
     const baseClasses =
-        ' flex h-full max-h-[70vh]  overflow-x-scroll text-center select-none items-center overflow-y-hidden'
+        ' flex h-full max-h-[50vh]  overflow-x-scroll text-center select-none items-center overflow-y-hidden'
     const snappingClass = isDragging ? '' : 'snap-x snap-mandatory'
     const cursorClass = isDragging ? 'cursor-grabbing' : 'cursor-grab'
 
