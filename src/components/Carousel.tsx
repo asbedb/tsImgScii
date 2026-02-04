@@ -17,6 +17,16 @@ export function Carousel({ items }: CarouselProps) {
     const [scrollLeft, setScrollLeft] = useState<number>(0)
     const [activeIndex, setActiveIndex] = useState<number>(0)
 
+    const handleScroll = () => {
+        if (!carouselRef.current) return
+        const index = Math.round(
+            carouselRef.current.scrollLeft / carouselRef.current.clientWidth
+        )
+        if (index !== activeIndex) {
+            setActiveIndex(index)
+        }
+    }
+
     const scrollToIndex = (index: number) => {
         const container = carouselRef.current
         if (!container) return
@@ -30,28 +40,22 @@ export function Carousel({ items }: CarouselProps) {
             setActiveIndex(index)
         }
     }
+    //Mouse Related
     const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
         if (!carouselRef.current || e.button !== 0) return
         setIsDragging(true)
         setStartX(e.pageX - carouselRef.current.offsetLeft)
         setScrollLeft(carouselRef.current.scrollLeft)
     }
-
     const handleMouseUpOrLeave = () => {
         setIsDragging(false)
     }
 
     const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
         if (!isDragging || !carouselRef.current) return
-        const index = Math.round(
-            carouselRef.current.scrollLeft / carouselRef.current.clientWidth
-        )
         const x = e.pageX - carouselRef.current.offsetLeft
         const walk = (x - startX) * 2
         carouselRef.current.scrollLeft = scrollLeft - walk
-        if (index !== activeIndex) {
-            setActiveIndex(index)
-        }
     }
 
     const baseClasses =
@@ -83,6 +87,7 @@ export function Carousel({ items }: CarouselProps) {
                 onMouseUp={handleMouseUpOrLeave}
                 onMouseLeave={handleMouseUpOrLeave}
                 onMouseMove={handleMouseMove}
+                onScroll={handleScroll}
             >
                 {items.map((item) => (
                     <div key={item.id}>{item.content}</div>
