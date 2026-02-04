@@ -43,7 +43,7 @@ export function SettingsForm({
     handleGenerate,
 }: FileInputProps) {
     return (
-        <div className="flex h-full w-full flex-col gap-4 overflow-y-scroll py-4">
+        <div className="flex w-full flex-col gap-4 overflow-y-scroll p-4">
             <ImageSelect handleFileChange={handleFileChange} />
             <ShadeRamp
                 shadeRamp={shadeRamp}

@@ -3,7 +3,7 @@ interface CarouselItemProps {
 }
 export function CarouselItem({ children }: CarouselItemProps) {
     return (
-        <div className="flex min-w-full snap-center items-center justify-center">
+        <div className="flex min-w-screen snap-center items-center justify-center">
             {children}
         </div>
     )
