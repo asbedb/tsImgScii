@@ -23,17 +23,27 @@ export function Home() {
         handleReset,
         applyResize,
         handleGenerate,
+        containerRef,
+        dynamicHeight,
+        dynamicWidth,
     } = useImageConvertor(setAsciiArt)
 
     useEffect(() => {}, [asciiArt, originalUrl, previewUrl])
 
     return (
         <div className="flex flex-col items-center justify-center overflow-hidden">
-            <PreviewContainer
-                asciiArt={asciiArt}
-                originalUrl={originalUrl}
-                previewUrl={previewUrl}
-            />
+            <div
+                ref={containerRef}
+                className="h-full max-h-[60vh] w-full overflow-hidden"
+            >
+                <PreviewContainer
+                    asciiArt={asciiArt}
+                    originalUrl={originalUrl}
+                    previewUrl={previewUrl}
+                    cols={dynamicWidth || 50}
+                    rows={dynamicHeight || 100}
+                />
+            </div>
             <SettingsForm
                 shadeRamp={shadeRamp}
                 width={width}

@@ -1,4 +1,10 @@
-import { useState, type ChangeEvent, useCallback } from 'react'
+import {
+    useState,
+    type ChangeEvent,
+    useCallback,
+    useRef,
+    useEffect,
+} from 'react'
 import { greyScaleFilter } from '../util/image-utils/greyscale'
 import { resizeImage } from '../util/image-utils/resize'
 import { luminanceMap } from '../util/image-utils/luminanceMap'
@@ -11,6 +17,11 @@ import { clearImageStore } from '../util/indexdb-utils/clearImageStore'
 import { DEFAULT_SHADE_RAMP, DEFAULT_HEIGHT, DEFAULT_WIDTH } from '../const'
 
 export function useImageConvertor(setFinalArt: (art: string | null) => void) {
+    // dynamic container states
+    const containerRef = useRef<HTMLDivElement | null>(null)
+    const [dynamicWidth, setDynamicWidth] = useState<number | null>(null)
+    const [dynamicHeight, setDynamicHeight] = useState<number | null>(null)
+    // customisable states
     const [shadeRamp, setShadeRamp] = useState<string | null>(null)
     const [width, setWidth] = useState<number | null>(null)
     const [height, setHeight] = useState<number | null>(null)
@@ -19,6 +30,21 @@ export function useImageConvertor(setFinalArt: (art: string | null) => void) {
     const [greyScale, setGreyscale] = useState<boolean>(false)
     const [message, setMessage] = useState<string | null>(null)
 
+    useEffect(() => {
+        const el = containerRef.current
+        if (!el) return
+        const observer = new ResizeObserver((entries) => {
+            const { width: pW, height: pH } = entries[0].contentRect
+            const charW = 12 * 0.5
+            const charH = 12 * 0.5
+            const dynamicCols = Math.floor(pW / charW)
+            const dynamicRows = Math.floor(pH / charH)
+            setDynamicWidth(dynamicCols)
+            setDynamicHeight(dynamicRows)
+        })
+        observer.observe(el)
+        return () => observer.disconnect()
+    }, [])
     const handleGenerate = useCallback(async () => {
         setMessage(null)
         if (!width) return
@@ -161,5 +187,8 @@ export function useImageConvertor(setFinalArt: (art: string | null) => void) {
         handleReset,
         applyResize,
         handleGenerate,
+        containerRef,
+        dynamicHeight,
+        dynamicWidth,
     }
 }

@@ -7,12 +7,16 @@ interface ConsoleProps {
     originalUrl: string | null
     previewUrl: string | null
     asciiArt: React.ReactNode | null
+    cols: number
+    rows: number
 }
 
 export function PreviewContainer({
     originalUrl,
     previewUrl,
     asciiArt,
+    cols,
+    rows,
 }: ConsoleProps) {
     const items = [
         {
@@ -55,7 +59,11 @@ export function PreviewContainer({
             content: (
                 <CarouselItem>
                     {asciiArt ? (
-                        <AsciiContainer content={asciiArt} />
+                        <AsciiContainer
+                            content={asciiArt}
+                            cols={cols}
+                            rows={rows}
+                        />
                     ) : (
                         <div className="p-8 text-gray-400">
                             Generate ASCII art to view results
@@ -66,9 +74,5 @@ export function PreviewContainer({
         },
     ]
 
-    return (
-        <div className="mx-auto max-w-screen pt-4">
-            <Carousel items={items} />
-        </div>
-    )
+    return <Carousel items={items} />
 }
