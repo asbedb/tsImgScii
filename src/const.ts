@@ -11,3 +11,5 @@ export const MODIFIED_STORAGE_KEY = 'modifiedImage'
 export const DEFAULT_SHADE_RAMP = ' .:=*^[#$%@&'
 export const DEFAULT_WIDTH = 100
 export const DEFAULT_HEIGHT = 50
+export const MAX_ASCII_WIDTH = 500
+export const MAX_ASCII_HEIGHT = 500

@@ -4,7 +4,6 @@ import { ShadeRamp } from '../modules/ShadeRamp'
 import { Size } from '../modules/Size'
 import { Filters } from '../modules/Filters'
 import { MessageModule } from '../modules/MessageModule'
-
 import { WelcomePopover } from './WelcomePopover'
 import { GenerateButton } from '../components/GenerateButton'
 import { ResetButton } from '../components/ResetButton'

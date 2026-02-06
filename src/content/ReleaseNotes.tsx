@@ -1,6 +1,7 @@
 import { GitHubButton } from '../components/GitHubButton'
 import { OneOne } from './version/OneOne'
 import { OneZero } from './version/OneZero'
+import { TwoZero } from './version/TwoZero'
 
 export function ReleaseNotes() {
     return (
@@ -27,6 +28,7 @@ export function ReleaseNotes() {
                 Desktop version recommended for best experience
             </span>
             <GitHubButton />
+            <TwoZero />
             <OneOne />
             <OneZero />
         </div>

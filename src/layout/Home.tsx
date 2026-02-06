@@ -28,12 +28,16 @@ export function Home() {
     useEffect(() => {}, [asciiArt, originalUrl, previewUrl])
 
     return (
-        <div className="flex flex-col items-center justify-center overflow-hidden">
-            <PreviewContainer
-                asciiArt={asciiArt}
-                originalUrl={originalUrl}
-                previewUrl={previewUrl}
-            />
+        <div className="flex h-screen flex-col items-center justify-center overflow-hidden">
+            <div className="relative h-full w-full grow">
+                <PreviewContainer
+                    asciiArt={asciiArt}
+                    originalUrl={originalUrl}
+                    previewUrl={previewUrl}
+                    width={width}
+                    height={height}
+                />
+            </div>
             <SettingsForm
                 shadeRamp={shadeRamp}
                 width={width}
