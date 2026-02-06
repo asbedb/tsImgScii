@@ -6,17 +6,17 @@ import { Carousel } from '../components/Carousel'
 interface ConsoleProps {
     originalUrl: string | null
     previewUrl: string | null
-    asciiArt: React.ReactNode | null
-    cols: number
-    rows: number
+    asciiArt: string | null
+    width: number | null
+    height: number | null
 }
 
 export function PreviewContainer({
     originalUrl,
     previewUrl,
     asciiArt,
-    cols,
-    rows,
+    width,
+    height,
 }: ConsoleProps) {
     const items = [
         {
@@ -61,8 +61,8 @@ export function PreviewContainer({
                     {asciiArt ? (
                         <AsciiContainer
                             content={asciiArt}
-                            cols={cols}
-                            rows={rows}
+                            cols={width}
+                            rows={height}
                         />
                     ) : (
                         <div className="p-8 text-gray-400">
