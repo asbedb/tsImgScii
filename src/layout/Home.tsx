@@ -28,8 +28,8 @@ export function Home() {
     useEffect(() => {}, [asciiArt, originalUrl, previewUrl])
 
     return (
-        <div className="flex h-full flex-col items-center justify-center overflow-hidden">
-            <div className="h-full max-h-[60vh] w-full overflow-hidden">
+        <div className="flex h-screen flex-col items-center justify-center overflow-hidden">
+            <div className="relative h-full w-full grow">
                 <PreviewContainer
                     asciiArt={asciiArt}
                     originalUrl={originalUrl}

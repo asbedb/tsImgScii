@@ -8,7 +8,13 @@ import { saveImagetoIndexedDB } from '../util/indexdb-utils/saveImageToIndexedDB
 import { fileToBase64 } from '../util/indexdb-utils/fileToBase64'
 import { clearImageStore } from '../util/indexdb-utils/clearImageStore'
 
-import { DEFAULT_SHADE_RAMP, DEFAULT_HEIGHT, DEFAULT_WIDTH } from '../const'
+import {
+    DEFAULT_SHADE_RAMP,
+    DEFAULT_HEIGHT,
+    DEFAULT_WIDTH,
+    MAX_ASCII_WIDTH,
+    MAX_ASCII_HEIGHT,
+} from '../const'
 
 export function useImageConvertor(setFinalArt: (art: string | null) => void) {
     // customisable states
@@ -92,11 +98,38 @@ export function useImageConvertor(setFinalArt: (art: string | null) => void) {
             const dataUrl = await fileToBase64(file)
             await saveImagetoIndexedDB(dataUrl, false)
             const dimensions = await getImageDimensions(dataUrl)
+            let targetWidth = dimensions.width
+            let targetHeight = dimensions.height
+            if (
+                targetWidth > MAX_ASCII_WIDTH ||
+                targetHeight > MAX_ASCII_HEIGHT
+            ) {
+                const ratio = targetWidth / targetHeight
+                if (ratio > 1) {
+                    targetWidth = MAX_ASCII_WIDTH
+                    targetHeight = Math.round(MAX_ASCII_HEIGHT / ratio)
+                    const newResizeUrl = await resizeImage(
+                        targetWidth,
+                        targetHeight
+                    )
+                    if (newResizeUrl) setPreviewUrl(newResizeUrl)
+                } else {
+                    targetHeight = MAX_ASCII_HEIGHT
+                    targetWidth = Math.round(MAX_ASCII_WIDTH / ratio)
+                    const newResizeUrl = await resizeImage(
+                        targetWidth,
+                        targetHeight
+                    )
+                    if (newResizeUrl) setPreviewUrl(newResizeUrl)
+                }
+                setMessage(
+                    `Image scaled down to ${targetWidth}x${targetHeight} for performance.`
+                )
+            }
             setOriginalUrl(dataUrl)
-            setWidth(dimensions.width)
-            setHeight(dimensions.height)
+            setWidth(targetWidth)
+            setHeight(targetHeight)
         } catch (e) {
-            console.log(e)
             setMessage(`${e}`)
         }
     }
