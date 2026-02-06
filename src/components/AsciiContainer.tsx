@@ -53,7 +53,6 @@ export function AsciiContainer({ content, cols, rows }: AsciiContainerProps) {
             e.preventDefault()
             if (e.ctrlKey) {
                 // Pinch to Zoom (or Ctrl + Scroll)
-                const zoomSpeed = 0.01
                 const delta = -e.deltaY
                 const factor = Math.pow(1.1, delta / 100)
                 transform.current.scale *= factor
