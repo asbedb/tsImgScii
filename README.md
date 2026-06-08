@@ -20,6 +20,12 @@ The application is browser-based client side meaning no calls to a server with d
 
 Ensure you have NPM and [NodeJS](https://nodejs.org/en) to run and build the project.
 
+Once node is installed ensured you have pnpm also installed
+
+```bash
+npm install -g pnpm
+```
+
 ### 2. (Optional) Fork the repository
 
 [Fork](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo) the repository as your own repo if you wish to build on top of the existing code.
@@ -49,21 +55,29 @@ This command opens the project folder where you'll find all the source code and 
 Run the following command in your terminal to install all the necessary packages defined in the project's package.json file:
 
 ```sh
-npm i
+pnpm i
 ```
 
 This command (shorthand for npm install) will automatically download and set up all required packages. The installation process may take several minutes depending on your internet connection speed.
 
 Subsequently you can either build or run a local developer environment with the following commands
 
+You may need to approve the eslint dependency to build - to trigger this action enter the belowing command and follow the prompts:
+
 ```sh
-npm run dev
+pnpm approve-builds
+```
+
+Finally
+
+```sh
+pnpm run dev
 ```
 
 (this allows for you to view the application via localhost in your browser)
 
 ```sh
-npm run build
+pnpm run build
 ```
 
 (this will build the project in a /dist folder readily available to upload to a hosting service)
